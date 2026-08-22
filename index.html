@@ -303,6 +303,7 @@ button{ font-family:var(--font-utility); cursor:pointer; border:none; background
    ============================================================ */
 .hero{
   position:relative;
+  min-height:100vh;   /* fallback for browsers without svh support */
   min-height:100svh;
   display:flex; flex-direction:column; align-items:center; justify-content:center;
   text-align:center;
@@ -520,11 +521,13 @@ button{ font-family:var(--font-utility); cursor:pointer; border:none; background
 
 .letter-content{
   position:relative; z-index:1; width:100%;
-  opacity:0; max-height:0; overflow:hidden;
+  display:grid; grid-template-rows: 0fr;
+  opacity:0;
   transform: translateY(18px);
-  transition: opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s, max-height 0.7s ease;
+  transition: opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s, grid-template-rows 0.7s ease;
 }
-.letter-card.open .letter-content{ opacity:1; max-height:2400px; transform:none; }
+.letter-card.open .letter-content{ opacity:1; grid-template-rows: 1fr; transform:none; }
+.letter-content-inner{ overflow:hidden; min-height:0; }
 
 .letter-heading{
   font-family: var(--font-display); font-style:italic; font-weight:700;
@@ -1316,12 +1319,15 @@ html, body{ max-width:100%; overflow-x:hidden; }
         <span class="tap-text">Tap to Open Your Letter 💌</span>
         <span class="envelope-hint">a few words, written just for you</span>
       </div>
-      <div class="letter-content" id="letter-content">
-        <h3 class="letter-heading">Dear <span id="letter-name-inline">HER_NAME</span>,</h3>
-        <p class="letter-body" id="letter-body"></p>
-        <p class="letter-signature" id="letter-signature"></p>
-        <button class="letter-close-btn" id="letter-close-btn" type="button">close ✦ reopen anytime</button>
+            <div class="letter-content" id="letter-content">
+        <div class="letter-content-inner">
+          <h3 class="letter-heading">Dear <span id="letter-name-inline">HER_NAME</span>,</h3>
+          <p class="letter-body" id="letter-body"></p>
+          <p class="letter-signature" id="letter-signature"></p>
+          <button class="letter-close-btn" id="letter-close-btn" type="button">close ✦ reopen anytime</button>
+        </div>
       </div>
+    </div>
     </div>
   </section>
 
