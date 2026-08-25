@@ -1152,6 +1152,7 @@ footer{
 :focus-visible{ outline: 2px solid var(--soft-rose); outline-offset: 3px; }
 
 
+
 /* ============================================================
    20. RESPONSIVE REFINEMENTS
    Tested against 320 / 375 / 390 / 414 / 768 / 1024 / 1440+ px.
@@ -1317,11 +1318,10 @@ html, body{ max-width:100%; overflow-x:hidden; }
         <span class="envelope-hint">a few words, written just for you</span>
       </div>
             <div class="letter-content" id="letter-content">
-        <div class="letter-content-inner">
+                <div class="letter-content-inner">
           <h3 class="letter-heading">Dear <span id="letter-name-inline">HER_NAME</span>,</h3>
           <p class="letter-body" id="letter-body"></p>
           <p class="letter-signature" id="letter-signature"></p>
-          <button class="letter-close-btn" id="letter-close-btn" type="button">close ✦ reopen anytime</button>
         </div>
       </div>
     </div>
@@ -1697,7 +1697,6 @@ document.getElementById('goodbye-name').textContent = CONFIG.herName;
    ============================================================ */
 (function letterInit(){
   const card = document.getElementById('letter-card');
-  const closeBtn = document.getElementById('letter-close-btn');
   let isOpen = false;
 
   function spawnHearts(){
@@ -1720,11 +1719,6 @@ document.getElementById('goodbye-name').textContent = CONFIG.herName;
     card.setAttribute('aria-expanded', 'true');
     spawnHearts();
   }
-  function closeLetter(){
-    isOpen = false;
-    card.classList.remove('open');
-    card.setAttribute('aria-expanded', 'false');
-  }
 
   card.addEventListener('click', () => { if (!isOpen) openLetter(); });
   card.addEventListener('keydown', (e) => {
@@ -1732,10 +1726,6 @@ document.getElementById('goodbye-name').textContent = CONFIG.herName;
       e.preventDefault();
       openLetter();
     }
-  });
-  closeBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    closeLetter();
   });
 })();
 
@@ -1757,8 +1747,6 @@ document.getElementById('goodbye-name').textContent = CONFIG.herName;
     modalDate.textContent = memory.date;
     modalTitle.textContent = memory.title;
     modalDesc.textContent = memory.description;
-    overlay.classList.add('open');
-    document.body.classList.add('no-scroll');
         overlay.classList.add('open');
     lockScroll();
     modalCloseBtn.focus();
